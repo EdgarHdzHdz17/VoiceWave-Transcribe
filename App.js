@@ -5,11 +5,13 @@ import { Audio } from 'expo-av';
 import axios from 'axios';
 import * as FileSystem from 'expo-file-system';
 import { FontAwesome5 } from '@expo/vector-icons';
+import LottieView from "lottie-react-native";
 
 export default function App() {
   const [recording, setRecording] = useState();
   const [recordings, setRecordings] = useState([]);
   const [resultSpeech, setResultSpeech] = useState("");
+  const [isRecording, setIsRecording] = useState(false);
   
   //Funcion para iniciar grabacion
   async function startRecording() {
@@ -38,6 +40,7 @@ export default function App() {
             linearPCMIsFloat: false,
           },
         };
+        setIsRecording(true);
         const { recording } = await Audio.Recording.createAsync(recordingOptions);
         setRecording(recording);
       } else {
@@ -70,6 +73,7 @@ export default function App() {
     setRecordings(updatedRecordings);
     translateSpeechToText(fileUri);
     setRecordings([]);
+    setIsRecording(false);
   }
 
   async function translateSpeechToText(fileUri) {
@@ -85,7 +89,7 @@ export default function App() {
       const response = await axios.post('https://api.openai.com/v1/audio/transcriptions', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          'Authorization': 'Bearer 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',
+          'Authorization': 'Bearer APIKEY',
         },
       });
       const resultSpeech = response.data;
@@ -99,6 +103,10 @@ export default function App() {
     } catch (error) {
       console.error(`Error al eliminar el archivo ${fileUri}: ${error.message}`);
     }
+  }
+
+  const ClearResultSpeech= () =>{
+    setResultSpeech("")
   }
 
 
@@ -116,15 +124,15 @@ export default function App() {
       </View>
 
       <View style={styles.containerResultText}>
+        {isRecording && (
+          <LottieView source={require('./assets/AnimationSpeech.json')} autoPlay={startRecording} style={{width: 100,height: 100,}}/>
+        )}
         <Text style={styles.textResultSpeech}>Result:{"\n"}</Text>
         <Text style={styles.textResultSpeech}>{resultSpeech}</Text>
-      </View>
-
-
-
-      
-      
-      
+        <TouchableOpacity style={styles.clearButton} onPress={ClearResultSpeech}>
+          <Text>Clear</Text>
+        </TouchableOpacity>
+      </View>     
     </View>
     
   );
@@ -158,12 +166,19 @@ const styles = StyleSheet.create({
   },
 
   recordButtonContainer: {
-    backgroundColor: "#26627F",
+    backgroundColor: "#87cefa",
     borderRadius: 80,
     width: 150,
     height: 150,
     justifyContent: "center",
     alignItems: "center",
+  },
+
+  lottie:{
+    width: 120,
+    height:120,
+    alignItems:'center',
+    justifyContent:'center',
   },
 
   containerResultText:{
@@ -177,6 +192,15 @@ const styles = StyleSheet.create({
     color:'black'
   },
 
+  clearButton:{
+    width:'30%',
+    height:'15%',
+    justifyContent:'center',
+    alignItems:'center',
+    borderColor:'gray',
+    borderRadius:5,
+    backgroundColor:'orange'
+  }
   
 
 
