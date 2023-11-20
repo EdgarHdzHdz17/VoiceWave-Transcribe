@@ -4,12 +4,12 @@
     "slug": "VoiceWave-Transcribe",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/IconApp.png",
+    "icon": "./assets/iconapp.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/IconApp.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#232323"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -19,7 +19,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/IconApp.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       }
     },
