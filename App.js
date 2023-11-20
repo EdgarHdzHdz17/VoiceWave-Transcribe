@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import React, {useState} from 'react';
-import { Button, StyleSheet, Text, View,TouchableOpacity } from 'react-native';
+import {React,useState} from 'react';
+import { StyleSheet, Text, View,TouchableOpacity } from 'react-native';
 import { Audio } from 'expo-av';
 import axios from 'axios';
 import * as FileSystem from 'expo-file-system';
@@ -105,10 +105,9 @@ export default function App() {
     }
   }
 
-  const ClearResultSpeech= () =>{
+  const clearResultSpeech= () =>{
     setResultSpeech("")
   }
-
 
   return (
     <View style={styles.container}>
@@ -129,10 +128,11 @@ export default function App() {
         )}
         <Text style={styles.textResultSpeech}>Result:{"\n"}</Text>
         <Text style={styles.textResultSpeech}>{resultSpeech}</Text>
-        <TouchableOpacity style={styles.clearButton} onPress={ClearResultSpeech}>
-          <Text>Clear</Text>
+        <TouchableOpacity style={styles.clearButton} onPress={clearResultSpeech}>
+          <Text style={styles.textClearButton}>Clear</Text>
         </TouchableOpacity>
-      </View>     
+      </View>   
+        
     </View>
     
   );
@@ -141,7 +141,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#3CABFF',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -149,13 +149,13 @@ const styles = StyleSheet.create({
   containerTitle:{
     alignItems:'center',
     width:'99%',
-    height:'20%',
+    height:'30%',
+    justifyContent:'center'
   },
 
   textTitle:{
     fontSize:45,
-    color:'black',
-    marginTop:'7%',
+    color:'white',
   },
 
   containerButtonRecognition:{
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
   },
 
   recordButtonContainer: {
-    backgroundColor: "#87cefa",
+    backgroundColor: "#77C2FC",
     borderRadius: 80,
     width: 150,
     height: 150,
@@ -184,12 +184,12 @@ const styles = StyleSheet.create({
   containerResultText:{
     alignItems:'center',
     width:'80%',
-    flex:'1',
+    flex:1,
   },
 
   textResultSpeech:{
     fontSize:30,
-    color:'black'
+    color:'white'
   },
 
   clearButton:{
@@ -197,11 +197,13 @@ const styles = StyleSheet.create({
     height:'15%',
     justifyContent:'center',
     alignItems:'center',
-    borderColor:'gray',
     borderRadius:5,
-    backgroundColor:'orange'
-  }
+    backgroundColor:'#77C2FC'
+  },
   
-
+  textClearButton:{
+    color:'white',
+    fontSize:20,
+  }
 
 });
